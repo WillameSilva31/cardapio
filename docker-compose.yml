@@ -1,0 +1,29 @@
+
+services:
+  postgres-db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=cardapio
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=Pr0gr4m3 
+      - POSTGRES_SECRET=segredo 
+
+  spring-app:
+    image: cardapio-api:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/cardapio
+    depends_on:
+      - postgres-db
+
+  spa-app:
+    build:
+      context: ./cardapioF
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    depends_on:
+      - spring-app
