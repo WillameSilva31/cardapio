@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar apenas arquivos de configuração LOCAIS
+application-local.properties
+application-dev.properties
+.env
+
+# Permitir que arquivos de produção subam pro git
+!application.properties
+!application-prod.properties
