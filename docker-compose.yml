@@ -7,7 +7,7 @@ services:
     environment:
       - POSTGRES_DB=cardapio
       - POSTGRES_USERNAME=postgres
-      - POSTGRES_PASSWORD=Pr0gr4m3 
+      - POSTGRES_PASSWORD=Pr0gr4m3
       - POSTGRES_SECRET=segredo 
 
   spring-app:
