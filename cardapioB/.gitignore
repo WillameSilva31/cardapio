@@ -40,3 +40,5 @@ application-dev.properties
 # Permitir que arquivos de produção subam pro git
 !application.properties
 !application-prod.properties
+
+#
