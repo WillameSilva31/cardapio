@@ -5,10 +5,13 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=cardapio
-      - POSTGRES_USERNAME=postgres
-      - POSTGRES_PASSWORD=Pr0gr4m3
-      - POSTGRES_SECRET=segredo 
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - DATABASE_SECRET=${DATABASE_SECRET}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
 
   spring-app:
     image: cardapio-api:latest
