@@ -1,32 +1,38 @@
-
 services:
-  postgres-db:
-    image: postgres:latest
-    ports:
-      - "5432:5432"
-    environment:
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-      - DATABASE_SECRET=${DATABASE_SECRET}
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - SPRING_JPA_SHOW_SQL=true
-      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+  # Como você está usando PostgreSQL externo (Render), não precisa do serviço local
 
   spring-app:
     image: cardapio-api:latest
     ports:
-      - "8080:8080"
+      - "${SPRING_PORT:-8080}:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/cardapio
-    depends_on:
-      - postgres-db
+      # Usando as mesmas variáveis que estão no Render
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL:-jdbc:postgresql://dpg-d2416vk9c44c73aeovu0-a.oregon-postgres.render.com:5432/cardapio_40b6?sslmode=require}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME:-cardapio_user}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - DATABASE_SECRET=${DATABASE_SECRET:-my_secret_key}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialet
+    networks:
+      - app-network
+    restart: unless-stopped
 
   spa-app:
     build:
-      context: ./cardapioF
+      context: ./cardapio/
       dockerfile: Dockerfile
     ports:
-      - "9090:9090"
+      - "${SPA_PORT:-9090}:9090"
     depends_on:
       - spring-app
+    networks:
+      - app-network
+
+# Removido volumes do PostgreSQL pois está usando banco externo
+# volumes:
+#   postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
