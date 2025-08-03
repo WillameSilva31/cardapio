@@ -6,10 +6,10 @@ interface CardProps{
     imagem: string
 }
 
-export function Card({ preco, nome, imagem }: CardProps) {
+export function Card({ preco, nome, imagem }: Readonly<CardProps>) {
     return(
         <div className="card">
-            <img src={imagem}/>
+            <img alt="food-image" src={imagem}/>
             <h2>{nome}</h2>
             <p><b>Valor: </b>{preco} reais</p>
         </div>

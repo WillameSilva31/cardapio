@@ -32,7 +32,7 @@ public class ControladorAutenticacao {
     public ResponseEntity login(@RequestBody RequisicaoUsuarioLoginDTO body){
         Usuario usuario = this.repositorioUsuario.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
         if (codificadorSenha.matches( body.senha(), usuario.getSenha())) {
-            String token =this.tokenServico.gerarToken(usuario);
+            String token = this.tokenServico.gerarToken(usuario);
             return ResponseEntity.ok(new RespostaUsuarioDTO(usuario.getNome(),token,usuario.getId(),usuario.getECozinheiro()));
         }
         return  ResponseEntity.badRequest().build();
