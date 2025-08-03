@@ -1,28 +1,40 @@
-import { AxiosPromise } from "axios";
 import { DadoUsuarioLogin } from "../interface/DadoUsuarioLogin";
 import api from "../api";
 import { useMutation } from "@tanstack/react-query";
 
-
-const posDados = async (data: DadoUsuarioLogin): AxiosPromise<any> => {
-    const response = await api.post ('/autenticacao/login', data);
-    return response;
+const posDados = async (data: DadoUsuarioLogin): Promise<any> => {
+    try {
+        const response = await api.post('/autenticacao/login', data, {
+            timeout: 10000
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erro no login:', error);
+        throw error;
+    }
 }
 
 export function useDadosUsuarioLoginMutate(){
     const mutateUsuario = useMutation({
         mutationFn: posDados,
-        retry: 2,
+        retry: 1, 
+        retryDelay: 2000,
         onSuccess: (data) => {
-            const token = data.data.token;
-            localStorage.setItem('token', token);
-
-            const cozinheiroId = data.data.cozinheiroId
-            localStorage.setItem('cozinheiroId',cozinheiroId)
-
-            const eCozinheiro = data.data.eCozinheiro
-            localStorage.setItem('eCozinheiro', eCozinheiro.toString());
+            try {
+                const { token, cozinheiroId, eCozinheiro } = data;
+                
+                if (token) localStorage.setItem('token', token);
+                if (cozinheiroId) localStorage.setItem('cozinheiroId', cozinheiroId.toString());
+                if (eCozinheiro !== undefined) localStorage.setItem('eCozinheiro', eCozinheiro.toString());
+                
+            } catch (error) {
+                console.error('Erro ao salvar dados do usuário:', error);
+            }
+        },
+        onError: (error) => {
+            console.error('Login error:', error);
         }
-    })
-    return mutateUsuario
+    });
+    
+    return mutateUsuario;
 }

@@ -18,7 +18,7 @@ export function useDadosComida(){
     const query = useQuery({
         queryFn: fetchDados,
         queryKey: ['dado-comida'],
-        retry: 2,
+        retry: true,
         retryDelay: 1000, 
         staleTime: 5 * 60 * 1000, 
     })
