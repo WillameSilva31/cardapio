@@ -64,6 +64,7 @@ public class  ControladorComida {
         dadoComida.setImagem(data.imagem());
         dadoComida.setPreco(data.preco());
         dadoComida.setCozinheiro(cozinheiro);
+        dadoComida.setCozinheiroNome(cozinheiro.getNome());
 
         repositorioComida.save(dadoComida);
         return new ResponseEntity<>("Comida adicionada com sucesso.", HttpStatus.CREATED);
