@@ -25,9 +25,11 @@ export function useDadosUsuarioLoginMutate(){
                 
                 if (token) localStorage.setItem('token', token);
                 if (id) localStorage.setItem('cozinheiroId', id.toString());
-                console.log('Dados do usuário salvos com sucesso:', data);
                 if (nome) localStorage.setItem('cozinheiroNome', nome);
                 if (eCozinheiro !== undefined) localStorage.setItem('eCozinheiro', eCozinheiro.toString());
+
+                console.log('Dados do usuário salvos com sucesso:', data);
+                console.log('cozinheiroId',localStorage.getItem('cozinheiroId'));
                 
             } catch (error) {
                 console.error('Erro ao salvar dados do usuário:', error);
