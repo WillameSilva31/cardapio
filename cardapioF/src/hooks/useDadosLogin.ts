@@ -22,6 +22,7 @@ export function useDadosUsuarioLoginMutate(){
         onSuccess: (data) => {
             try {
                 const { nome, token, id, eCozinheiro } = data;
+                console.log(data);
                 
                 if (token) localStorage.setItem('token', token);
                 if (id) localStorage.setItem('cozinheiroId', id.toString());
