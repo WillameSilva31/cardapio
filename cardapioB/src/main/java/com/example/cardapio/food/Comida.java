@@ -23,6 +23,7 @@ public class Comida implements Serializable {
     private String nome;
     private String imagem;
     private Integer preco;
+    private String cozinheiroNome;
 
     @ManyToOne
     @JoinColumn(name = "cozinheiro_id")
@@ -33,5 +34,6 @@ public class Comida implements Serializable {
         this.imagem = imagem;
         this.preco = preco;
         this.cozinheiro = cozinheiro;
+        this.cozinheiroNome = cozinheiro.getNome();
     }
 }
