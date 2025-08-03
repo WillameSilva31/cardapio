@@ -8,8 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 
-public record RespostaComidaDTO(UUID id, @NotBlank String nome, @NotNull String imagem, @NotNull Integer preco) {
+public record RespostaComidaDTO(UUID id, @NotBlank String nome, @NotNull String imagem, @NotNull Integer preco, @NotNull String cozinheiroNome) {
     public RespostaComidaDTO(Comida comida) {
-        this(comida.getId(),comida.getNome(), comida.getImagem(), comida.getPreco());
+        this(comida.getId(),comida.getNome(), comida.getImagem(), comida.getPreco(),comida.getCozinheiroNome());
     }
 }
