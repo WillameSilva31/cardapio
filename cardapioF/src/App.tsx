@@ -72,6 +72,8 @@ function App() {
             nome={dadoComida.nome}
             imagem={dadoComida.imagem}
             preco={dadoComida.preco}
+            cozinheiroNome={dadoComida.cozinheiroNome}
+            key={dadoComida.id}
           />
         )}
       </div>
