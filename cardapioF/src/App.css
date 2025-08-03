@@ -1,22 +1,21 @@
 .container {
   display: flex;
   align-items: center;
-  width: 100vw;
-}
-
-.card-grid {
-  padding-top: 6.25rem;
-  padding-bottom: 5.625rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
 }
 
 .card-grid-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width:99vw;
+}
+
+.card-grid {
+  padding-top: 10rem;
+  padding-bottom: 5.625rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
 }
 
 .header {
