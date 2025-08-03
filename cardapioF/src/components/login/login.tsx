@@ -42,12 +42,6 @@ export function Login({ closeModal, onLoginSuccess }: Readonly<LoginProps>) {
         }
 
         mutate(dadoUsuarioLogin)
-        console.log({
-            token: localStorage.getItem('token'),
-            cozinheiroId: localStorage.getItem('cozinheiroId'),
-            cozinheiroNome: localStorage.getItem('cozinheiroNome'),
-            eCozinheiro: localStorage.getItem('eCozinheiro')
-        });
     }
 
     useEffect(() => {

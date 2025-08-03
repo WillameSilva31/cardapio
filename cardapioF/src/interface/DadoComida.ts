@@ -3,5 +3,6 @@ export interface DadoComida {
     nome: string,
     imagem: string,
     preco: number,
-    cozinheiroId: string
+    cozinheiroId: string,
+    cozinheiroNome: string
 }

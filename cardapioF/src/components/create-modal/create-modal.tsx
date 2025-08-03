@@ -30,6 +30,7 @@ export function CreateModal ({ closeModal}: ModalProps) {
     
     const submit = () => {
         const cozinheiroId = localStorage.getItem('cozinheiroId');
+        const cozinheiroNome = localStorage.getItem('cozinheiroNome'); 
     
         if (!cozinheiroId) {
             alert("ID do cozinheiro não encontrado");
@@ -40,7 +41,8 @@ export function CreateModal ({ closeModal}: ModalProps) {
             nome,
             imagem,
             preco,
-            cozinheiroId   
+            cozinheiroId,
+            cozinheiroNome: cozinheiroNome || ""
         };
     
         mutate(dadoComida, {

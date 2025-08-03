@@ -21,11 +21,10 @@ export function useDadosUsuarioLoginMutate(){
         retryDelay: 2000,
         onSuccess: (data) => {
             try {
-                const { nome, token, id, eCozinheiro } = data;
-                console.log(data);
+                const { nome, token, cozinheiroId, eCozinheiro } = data;
                 
                 if (token) localStorage.setItem('token', token);
-                if (id) localStorage.setItem('cozinheiroId', id.toString());
+                if (cozinheiroId) localStorage.setItem('cozinheiroId', cozinheiroId.toString());
                 if (nome) localStorage.setItem('cozinheiroNome', nome);
                 if (eCozinheiro !== undefined) localStorage.setItem('eCozinheiro', eCozinheiro.toString());
                 
