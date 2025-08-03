@@ -14,23 +14,23 @@ const posDados = async (data: DadoUsuarioLogin): Promise<any> => {
     }
 }
 
-export function useDadosUsuarioLoginMutate(){
+export function useDadosUsuarioLoginMutate() {
     const mutateUsuario = useMutation({
         mutationFn: posDados,
-        retry: 1, 
+        retry: 1,
         retryDelay: 2000,
         onSuccess: (data) => {
             try {
-                const { nome, token, id, eCozinheiro } = data;
-                
+                const { nome, token, cozinheiroId, eCozinheiro } = data;
+
                 if (token) localStorage.setItem('token', token);
-                if (id) localStorage.setItem('cozinheiroId', id.toString());
+                if (cozinheiroId) localStorage.setItem('cozinheiroId', cozinheiroId.toString());
                 if (nome) localStorage.setItem('cozinheiroNome', nome);
                 if (eCozinheiro !== undefined) localStorage.setItem('eCozinheiro', eCozinheiro.toString());
 
                 console.log('Dados do usuário salvos com sucesso:', data);
-                console.log('cozinheiroId',localStorage.getItem('cozinheiroId'));
-                
+                console.log('cozinheiroId', localStorage.getItem('cozinheiroId'));
+
             } catch (error) {
                 console.error('Erro ao salvar dados do usuário:', error);
             }
@@ -39,6 +39,6 @@ export function useDadosUsuarioLoginMutate(){
             console.error('Login error:', error);
         }
     });
-    
+
     return mutateUsuario;
 }
