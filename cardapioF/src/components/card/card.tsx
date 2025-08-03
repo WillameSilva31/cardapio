@@ -12,8 +12,9 @@ export function Card({ preco, nome, imagem, cozinheiroNome }: Readonly<CardProps
         <div className="card">
             <img alt="food-image" src={imagem}/>
             <h2>{nome}</h2>
-            <p><b>Por: </b>{cozinheiroNome}</p>
             <p><b>Valor: </b>{preco} reais</p>
+            <p><b>Vendido por: </b>{cozinheiroNome}</p>
+            
         </div>
     )
 }

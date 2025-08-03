@@ -66,7 +66,8 @@ function App() {
           )}
         </div>
       </div>
-      <div className='card-grid'>
+      <div className='card-grid-container'>
+        <div className='card-grid'>
         {data?.map(dadoComida => 
           <Card
             nome={dadoComida.nome}
@@ -76,6 +77,7 @@ function App() {
             key={dadoComida.id}
           />
         )}
+      </div>
       </div>
       {isModalOpen && <CreateModal closeModal={handleOpenModal} />}
       {isLoggedIn && eCozinheiro && (  
