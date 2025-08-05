@@ -29,6 +29,8 @@ export function Card({id, preco, nome, imagem,cozinheiroId ,cozinheiroNome }: Re
         }
     };
 
+    console.log(exclude, idLogged, cozinheiroId);
+
     return(
         <div className="card">
             <img alt="food-image" src={imagem}/>
