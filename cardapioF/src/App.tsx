@@ -70,9 +70,11 @@ function App() {
         <div className='card-grid'>
         {data?.map(dadoComida => 
           <Card
+            id={dadoComida.id}
             nome={dadoComida.nome}
             imagem={dadoComida.imagem}
             preco={dadoComida.preco}
+            cozinheiroId={dadoComida.cozinheiroId}
             cozinheiroNome={dadoComida.cozinheiroNome}
             key={dadoComida.id}
           />
