@@ -40,7 +40,7 @@ export function Card({id, preco, nome, imagem,cozinheiroId ,cozinheiroNome }: Re
                 <button 
                     className="btn-delete"
                     onClick={handleDelete}
-                > 
+                > -
                 </button>
             )}
         </div>
