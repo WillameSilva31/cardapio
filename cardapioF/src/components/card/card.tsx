@@ -34,13 +34,13 @@ export function Card({id, preco, nome, imagem,cozinheiroId ,cozinheiroNome }: Re
         <div className="card">
             <img alt="food-image" src={imagem}/>
             <h2>{nome}</h2>
-            <p><b>Valor: </b>{preco} reais</p>
             <p><b>Vendido por: </b>{cozinheiroNome}</p>
+            <p><b>Valor: </b>{preco} reais</p>
             {exclude && (
                 <button 
                     className="btn-delete"
                     onClick={handleDelete}
-                > - 
+                > 
                 </button>
             )}
         </div>
