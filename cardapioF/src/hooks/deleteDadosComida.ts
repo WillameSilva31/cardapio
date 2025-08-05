@@ -3,6 +3,7 @@ import api from "../api";
 
 const deleteComida = async (id: string) => {
     const token = localStorage.getItem('token');
+    const cozinheiroId = localStorage.getItem('cozinheiroId');
 
     if (!token) {
         throw new Error('Token de autenticação não encontrado');
@@ -14,7 +15,7 @@ const deleteComida = async (id: string) => {
                 'Authorization': `Bearer ${token}`,  
                 'Content-Type': 'application/json', 
             },
-            data: {id}
+            data: { id, cozinheiroId }
         });
 
         return response.data;
