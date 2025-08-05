@@ -29,9 +29,6 @@ export function Card({id, preco, nome, imagem,cozinheiroId ,cozinheiroNome }: Re
         }
     };
 
-    console.log('Card component rendered with id:', id);
-    console.log('cozinheiroId:', cozinheiroId);
-
 
     return(
         <div className="card">
