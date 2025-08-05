@@ -1,5 +1,5 @@
 export interface DadoComida {
-    id: string,
+    id?: string,
     nome: string,
     imagem: string,
     preco: number,
