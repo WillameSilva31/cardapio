@@ -10,7 +10,7 @@ const deleteComida = async (id: string) => {
     }
 
     try {
-        const response = await api.delete('/comida', {        
+        const response = await api.delete('/comidas', {        
             headers: {
                 'Authorization': `Bearer ${token}`,  
                 'Content-Type': 'application/json', 
