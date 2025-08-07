@@ -4,8 +4,8 @@ import "./login.css"
 import { useEffect, useState } from "react"
 import {LuEye, LuEyeClosed } from "react-icons/lu";
 import { PasswordInputProps } from "../../interface/PasswordInputProps";
-import { InputProps } from "../../interface/inputProps";
-import { LoginProps } from "../../interface/loginProps";
+import { InputProps } from "../../interface/InputProps";
+import { LoginProps } from "../../interface/LoginProps";
 
 
 const Input = ({ label, value, updateValue, type = "text", error }: InputProps) => {

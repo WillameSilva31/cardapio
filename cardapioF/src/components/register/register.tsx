@@ -3,7 +3,7 @@ import { DadoUsuario } from "../../interface/DadoUsuario"
 import "./register.css"
 import { useEffect, useState } from "react"
 import { PasswordInputProps } from "../../interface/PasswordInputProps";
-import { InputProps } from "../../interface/inputProps";
+import { InputProps } from "../../interface/InputProps";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { RegisterProps } from "../../interface/RegisterProps";
 
