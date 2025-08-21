@@ -78,7 +78,7 @@
 
 @media (max-width: 480px) {
   #pngLogin {
-    padding-left: none;
+    padding-left: 0px;
     margin: 0 auto;
   }
 
