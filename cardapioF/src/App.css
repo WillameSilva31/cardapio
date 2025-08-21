@@ -78,7 +78,7 @@
 
 @media (max-width: 480px) {
   #pngLogin {
-    padding-left: 0px;
+    padding-left: none;
     margin: 0 auto;
   }
 
@@ -89,6 +89,7 @@
     margin-right: 10px;
     gap: 5px;
     border-radius: 20px;
+    width: auto;
   }
 
   .lc-button button {
