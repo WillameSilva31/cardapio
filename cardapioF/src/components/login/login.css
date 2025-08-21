@@ -48,7 +48,6 @@
     margin-bottom: 16px;
 }
 
-/* Container para cada campo de input */
 .input-field {
     display: flex;
     flex-direction: column;
@@ -75,7 +74,6 @@
     box-shadow: 0 0 0 3px rgba(58, 68, 248, 0.1);
 }
 
-/* Input com erro */
 .input-error {
     border-color: #ef4444 !important;
 }
@@ -85,7 +83,6 @@
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
 }
 
-/* Mensagem de erro */
 .error-message {
     color: #ef4444;
     font-size: 14px;
@@ -103,7 +100,6 @@
     text-transform: capitalize;
 }
 
-/* Container para senha com botão de toggle */
 .password-container {
     position: relative;
     display: flex;
@@ -169,7 +165,6 @@
     box-shadow: 0 0 0 3px rgba(58, 68, 248, 0.5);
 }
 
-/* Botão desabilitado quando há erros */
 .login-overflow .login-body .botaoEnviar:disabled {
     background-color: #9ca3af;
     cursor: not-allowed;
@@ -198,10 +193,9 @@
     transform: scale(1.05);
 }
 
-/* Responsividade */
 @media (max-width: 600px) {
     .login-overflow .login-body {
-        width: 95%;
+        width: 70%;
         padding: 20px;
     }
     
