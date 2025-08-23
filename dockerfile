@@ -18,6 +18,9 @@ COPY ./cardapioB/pom.xml ./
 COPY ./cardapioB/mvnw ./
 COPY ./cardapioB/.mvn ./.mvn
 
+# Dar permissão de execução ao mvnw
+RUN chmod +x ./mvnw
+
 # Baixar dependências
 RUN ./mvnw dependency:resolve
 
