@@ -33,6 +33,22 @@ public class ConfiguracoesSeguranca {
                         .requestMatchers(HttpMethod.POST, "/autenticacao/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/autenticacao/registro").permitAll()
                         .requestMatchers(HttpMethod.GET, "/comidas").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/static/**",
+                                "/assets/**",
+                                "/**/*.html",
+                                "/**/*.css",
+                                "/**/*.js",
+                                "/**/*.png",
+                                "/**/*.jpg",
+                                "/**/*.jpeg",
+                                "/**/*.gif",
+                                "/**/*.svg",
+                                "/**/*.ico",
+                                "/favicon.ico"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(filtroSeguranca, UsernamePasswordAuthenticationFilter.class);
