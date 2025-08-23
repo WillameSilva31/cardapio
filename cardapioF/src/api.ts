@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://cardapio-fullstack.onrender.com',  
+    baseURL: 'https://cardapio-fullstack.onrender.com',
     headers: {
-        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin":"*",
+        'Content-Type':'application/json',
     }
 })
 
