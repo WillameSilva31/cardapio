@@ -1,3 +1,4 @@
+name: cardapio-fullstack
 services:
   frontend:
     build: ./cardapioF
