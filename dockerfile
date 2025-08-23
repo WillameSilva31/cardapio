@@ -13,8 +13,10 @@ FROM eclipse-temurin:21-jdk-jammy AS backend-build
 WORKDIR /app/backend
 COPY ./cardapioB .
 
-# Copiar arquivos do frontend para o Spring Boot servir
+# Copiar arquivos do frontend (Vite) para o Spring Boot servir
 COPY --from=frontend-build /app/frontend/dist ./src/main/resources/static/
+# Debug: Verificar estrutura dos arquivos Vite
+RUN echo "Listando arquivos do Vite:" && ls -la ./src/main/resources/static/ && echo "Conteúdo detalhado:" && find ./src/main/resources/static/ -type f
 
 RUN chmod +x ./mvnw
 RUN ./mvnw clean install -DskipTests
