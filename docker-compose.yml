@@ -15,11 +15,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cardapio
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}  # ← Variável
-      - DATABASE_SECRET=${JWT_SECRET}              # ← Variável (SEM valor default!)
-      - PORT=8080
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}  
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}  
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD} 
+      - DATABASE_SECRET=${DATABASE_SECRET}
     depends_on:
       - db
     restart: unless-stopped
@@ -29,7 +28,7 @@ services:
     environment:
       - POSTGRES_DB=cardapio
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=${DB_PASSWORD}  # ← Mesma variável
+      - POSTGRES_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
