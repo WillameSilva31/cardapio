@@ -1,38 +1,38 @@
+version: '3.8'
 services:
-  # Como você está usando PostgreSQL externo (Render), não precisa do serviço local
-
-  spring-app:
-    image: cardapio-api:latest
+  frontend:
+    build: ./cardapioF
     ports:
-      - "${SPRING_PORT:-8080}:8080"
+      - "3000:3000"
     environment:
-      # Usando as mesmas variáveis que estão no Render
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL:-jdbc:postgresql://dpg-d2416vk9c44c73aeovu0-a.oregon-postgres.render.com:5432/cardapio_40b6?sslmode=require}
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME:-cardapio_user}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-      - DATABASE_SECRET=${DATABASE_SECRET:-my_secret_key}
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
-      - SPRING_JPA_SHOW_SQL=true
-      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialet
-    networks:
-      - app-network
+      - VITE_API_URL=/api
+    depends_on:
+      - backend
     restart: unless-stopped
 
-  spa-app:
-    build:
-      context: ./cardapio/
-      dockerfile: Dockerfile
+  backend:
+    build: ./cardapioB
     ports:
-      - "${SPA_PORT:-9090}:9090"
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cardapio
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}  # ← Variável
+      - DATABASE_SECRET=${JWT_SECRET}              # ← Variável (SEM valor default!)
+      - PORT=8080
     depends_on:
-      - spring-app
-    networks:
-      - app-network
+      - db
+    restart: unless-stopped
 
-# Removido volumes do PostgreSQL pois está usando banco externo
-# volumes:
-#   postgres_data:
+  db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=cardapio
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${DB_PASSWORD}  # ← Mesma variável
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
-networks:
-  app-network:
-    driver: bridge
+volumes:
+  postgres_data:
