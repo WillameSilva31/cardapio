@@ -1,38 +1,61 @@
-# Dockerfile único combinando seus Dockerfiles existentes
-
-# Build do Frontend (baseado no seu Dockerfile do frontend)
+# ==============================
+# Build do Frontend (Vite) - Otimizado
+# ==============================
 FROM node:18-alpine AS frontend-build
 WORKDIR /app/frontend
+
+# Cache de dependências otimizado
 COPY ./cardapioF/package*.json ./
-RUN npm ci
+RUN npm ci --only=production && npm cache clean --force
+
+# Build do frontend
 COPY ./cardapioF .
 RUN npm run build
 
-# Build do Backend (baseado no seu Dockerfile do backend)
+# ==============================
+# Build do Backend (Spring Boot) - Otimizado
+# ==============================
 FROM eclipse-temurin:21-jdk-jammy AS backend-build
 WORKDIR /app/backend
+
+# Cache de dependências Maven (como ChatGPT sugeriu)
+COPY ./cardapioB/pom.xml ./
+COPY ./cardapioB/mvnw ./
+COPY ./cardapioB/.mvn ./.mvn
+
+# Fix de permissão + download offline
+RUN chmod +x ./mvnw && ./mvnw dependency:go-offline -B
+
+# Copiar código fonte
 COPY ./cardapioB .
 
-# Copiar arquivos do frontend (Vite) para o Spring Boot servir
+# Copiar build do frontend
 COPY --from=frontend-build /app/frontend/dist ./src/main/resources/static/
-# Debug: Verificar estrutura dos arquivos Vite
-RUN echo "Listando arquivos do Vite:" && ls -la ./src/main/resources/static/ && echo "Conteúdo detalhado:" && find ./src/main/resources/static/ -type f
 
-RUN chmod +x ./mvnw
-RUN ./mvnw clean install -DskipTests
+# Build mais silencioso e rápido
+RUN ./mvnw clean package -DskipTests -B -q
 
-# Imagem final - apenas runtime
-FROM eclipse-temurin:21-jdk-jammy
+# ==============================
+# Imagem final (Runtime Ultra-Leve)
+# ==============================
+FROM eclipse-temurin:21-jre-jammy
 
-# Copiar JAR final
-COPY --from=backend-build /app/backend/target/cardapio-0.0.1-SNAPSHOT.jar /app/app.jar
+# Usuário não-root para segurança
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
-# Porta que será exposta
-EXPOSE 80
+WORKDIR /app
 
-# Variáveis de ambiente
-ENV JAVA_OPTS="-Xmx512m -Xms256m"
+# Copiar JAR
+COPY --from=backend-build /app/backend/target/*.jar app.jar
+RUN chown appuser:appgroup app.jar
+
+# Mudar para usuário não-root
+USER appuser
+
+# JVM otimizada para containers pequenos (Render)
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions"
 ENV PORT=80
 
-# Executar Spring Boot (que agora serve frontend + backend)
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+EXPOSE 80
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
