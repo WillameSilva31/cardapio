@@ -1,12 +1,12 @@
 # ==============================
-# Build do Frontend (Vite) - Otimizado
+# Build do Frontend (Vite) - Corrigido
 # ==============================
 FROM node:18-alpine AS frontend-build
 WORKDIR /app/frontend
 
-# Cache de dependências otimizado
+# Cache de dependências (PRECISA das devDependencies para build)
 COPY ./cardapioF/package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
 # Build do frontend
 COPY ./cardapioF .
@@ -18,7 +18,7 @@ RUN npm run build
 FROM eclipse-temurin:21-jdk-jammy AS backend-build
 WORKDIR /app/backend
 
-# Cache de dependências Maven (como ChatGPT sugeriu)
+# Cache de dependências Maven
 COPY ./cardapioB/pom.xml ./
 COPY ./cardapioB/mvnw ./
 COPY ./cardapioB/.mvn ./.mvn
@@ -54,8 +54,7 @@ USER appuser
 
 # JVM otimizada para containers pequenos (Render)
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions"
-ENV PORT=80
 
-EXPOSE 80
+EXPOSE $PORT
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
