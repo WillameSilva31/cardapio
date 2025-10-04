@@ -119,7 +119,7 @@ export function Registro({closeModal, onRegisterSuccess}: Readonly<RegisterProps
     };
 
     const handleEmailChange = (value: string) => {
-        setEmail(value);
+        setEmail(value.toLowerCase());
         if (value.trim()) {
             validateEmail(value);
         } else {

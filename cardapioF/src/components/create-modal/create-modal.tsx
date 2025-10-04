@@ -44,8 +44,6 @@ export function CreateModal ({ closeModal}: ModalProps) {
             cozinheiroId,
             cozinheiroNome: cozinheiroNome || ""
         };
-
-        console.log('dadoComida enviado:', dadoComida);
     
         mutate(dadoComida, {
             onError: (error) => {

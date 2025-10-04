@@ -92,7 +92,7 @@ export function Login({ closeModal, onLoginSuccess }: Readonly<LoginProps>) {
 
 
     const handleEmailChange = (value: string) => {
-        setEmail(value);
+        setEmail(value.toLowerCase());
         if (value.trim()) {
             validateEmail(value);
         } else {
