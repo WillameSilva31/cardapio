@@ -30,25 +30,23 @@ public class ConfiguracoesSeguranca {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        // Endpoints de autenticação
                         .requestMatchers(HttpMethod.POST, "/autenticacao/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/autenticacao/registro").permitAll()
+
+                        // Endpoint público
                         .requestMatchers(HttpMethod.GET, "/comidas").permitAll()
+
+                        // Arquivos estáticos (Frontend)
                         .requestMatchers(
                                 "/",
                                 "/index.html",
-                                "/static/**",
+                                "/favicon.ico",
                                 "/assets/**",
-                                "/**/*.html",
-                                "/**/*.css",
-                                "/**/*.js",
-                                "/**/*.png",
-                                "/**/*.jpg",
-                                "/**/*.jpeg",
-                                "/**/*.gif",
-                                "/**/*.svg",
-                                "/**/*.ico",
-                                "/favicon.ico"
+                                "/static/**"
                         ).permitAll()
+
+                        // Todas as outras rotas precisam de autenticação
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(filtroSeguranca, UsernamePasswordAuthenticationFilter.class);
@@ -56,7 +54,8 @@ public class ConfiguracoesSeguranca {
     }
 
     @Bean
-    public PasswordEncoder codificadorSenha() { return new BCryptPasswordEncoder();
+    public PasswordEncoder codificadorSenha() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
